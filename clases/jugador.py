@@ -19,8 +19,10 @@ class Player(pygame.sprite.Sprite):
 
 #---------------------------------------------------Metodos-------------------------------------------------
 #-----------------------------------------------Inicio metodo-----------------------------------------------
-	def mover(self, keystate):
+	def mover(self):
 		if self.vida > 0:
+
+			keystate = pygame.key.get_pressed()
 
 			if keystate[pygame.K_LEFT]:
 				self.rect.left -= self.velocidad
@@ -44,7 +46,7 @@ class Player(pygame.sprite.Sprite):
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------
 	def disparar(self):
-		pass
+		print("Disparar")
 #-------------------------------------------------Fin metodo------------------------------------------------
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------

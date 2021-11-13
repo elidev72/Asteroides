@@ -30,12 +30,19 @@ if __name__ == '__main__':
 
 		#Inserto la nave en la ventana
 		nave.dibujar(ventana)
+		#Movimiento de la nave, debe estar fuera del for de los eventos o la nave no se movera al mantener la tecla presionada
+		nave.mover()
 
-		#Para que cierre al precionar la cruz de la ventana
+		#Para capturar los eventos que van sucediendo
 		for evento in pygame.event.get():
+			#Para que cierre al precionar la cruz de la ventana
 			if evento.type == pygame.QUIT:
 				pygame.quit()
 				sys.exit()
+
+			if evento.type == pygame.KEYDOWN:
+				if evento.key == pygame.K_SPACE:
+					nave.disparar()
 
 			#Pausa del juego
 			if evento.type == pygame.KEYDOWN:
@@ -45,7 +52,7 @@ if __name__ == '__main__':
 					pygame.display.update() #esto es necesario o de lo contrario el cartel anterior no aparecera
 					pause()
 
-		#Movimiento de la nave, debe estar fuera del for de los eventos o la nave no se movera al mantener la tecla presionada
-		nave.mover(pygame.key.get_pressed())
+		
 
+		#Actualizar ventana
 		pygame.display.update()
