@@ -1,6 +1,3 @@
-import sys
-
-#importar clases propias:
 from funciones import *
 from clases import *
 

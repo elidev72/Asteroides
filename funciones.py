@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 
 def pause():
     pausado = True
@@ -8,7 +8,7 @@ def pause():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                quit()
+                sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_c:
