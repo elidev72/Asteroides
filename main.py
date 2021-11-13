@@ -1,9 +1,10 @@
-import pygame, sys
-from pygame.locals import *
+import sys
 
 #importar clases propias:
 from funciones import *
 from clases import *
+
+from pygame.locals import *
 
 #Variables globales:
 ANCHO = 800
@@ -39,9 +40,6 @@ if __name__ == '__main__':
 				pygame.quit()
 				sys.exit()
 
-			#Movimiento de la nave
-			nave.mover(pygame.key.get_pressed())
-
 			#Pausa del juego
 			if evento.type == pygame.KEYDOWN:
 				if evento.key == pygame.K_p:
@@ -49,5 +47,8 @@ if __name__ == '__main__':
 					mostrarTextoEnPantalla(ventana, "Juego en pausa, presione C para seguir jugando", "Arial", 40, ( 255, 255, 255), ANCHO/2, ALTO/2 - 50)
 					pygame.display.update() #esto es necesario o de lo contrario el cartel anterior no aparecera
 					pause()
+
+		#Movimiento de la nave, debe estar fuera del for de los eventos o la nave no se movera al mantener la tecla presionada
+		nave.mover(pygame.key.get_pressed())
 
 		pygame.display.update()
