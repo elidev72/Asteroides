@@ -1,6 +1,10 @@
 import pygame
 
 class Player(pygame.sprite.Sprite):
+	"""
+	    PRE: El Player no debe haber sido creado.
+	    POST: El Player queda creado.
+	"""
 	def __init__(self, ANCHO, ALTO):
 		pygame.sprite.Sprite.__init__(self)
 		self.imagenNave = pygame.image.load("Imagenes/player.png").convert()
@@ -19,6 +23,10 @@ class Player(pygame.sprite.Sprite):
 
 #---------------------------------------------------Metodos-------------------------------------------------
 #-----------------------------------------------Inicio metodo-----------------------------------------------
+	"""
+	    PRE: El Player debe haber sido creado.
+	    POST:
+	"""
 	def mover(self):
 		if self.vida > 0:
 
@@ -45,11 +53,19 @@ class Player(pygame.sprite.Sprite):
 #-------------------------------------------------Fin metodo------------------------------------------------
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------
+	"""
+	    PRE: El Player debe haber sido creado.
+	    POST:
+	"""
 	def disparar(self):
 		print("Disparar")
 #-------------------------------------------------Fin metodo------------------------------------------------
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------
+	"""
+	    PRE: El Player debe haber sido creado.
+	    POST:
+	"""
 	def dibujar(self, superficie):
 		superficie.blit(self.imagenNave, self.rect)
 #-------------------------------------------------Fin metodo------------------------------------------------

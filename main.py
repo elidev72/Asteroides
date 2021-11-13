@@ -45,10 +45,7 @@ if __name__ == '__main__':
 			#Pausa del juego
 			if evento.type == pygame.KEYDOWN:
 				if evento.key == pygame.K_p:
-					#Mostrar que el juego esta en pausa
-					mostrarTextoEnPantalla(ventana, "Juego en pausa, presione C para seguir jugando", "Arial", 40, ( 255, 255, 255), ANCHO/2, ALTO/2 - 50)
-					pygame.display.update() #esto es necesario o de lo contrario el cartel anterior no aparecera
-					pause()
+					pause(ventana, ANCHO/2, ALTO/2 - 50)
 
 		
 
