@@ -1,5 +1,7 @@
 import pygame, sys
+from pygame.locals import *
 
+#----------------------------------------------Inicio funcion-----------------------------------------------
 def pause():
     pausado = True
 
@@ -13,10 +15,13 @@ def pause():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_c:
                     pausado = False
+#------------------------------------------------Fin funcion------------------------------------------------
 
+#----------------------------------------------Inicio funcion-----------------------------------------------
 def mostrarTextoEnPantalla(ventana, texto, tipo_De_Letra, tamanio_De_Letra, color, x, y):
     font = pygame.font.SysFont(tipo_De_Letra, tamanio_De_Letra)
     texto_Ventana = font.render(texto, True, color)
     texto_Recta = texto_Ventana.get_rect()
     texto_Recta.midtop = (x, y)
     ventana.blit(texto_Ventana, texto_Recta)
+#------------------------------------------------Fin funcion------------------------------------------------

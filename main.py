@@ -1,8 +1,6 @@
 from funciones import *
 from clases import *
 
-from pygame.locals import *
-
 #Variables globales:
 ANCHO = 800
 ALTO = 600
