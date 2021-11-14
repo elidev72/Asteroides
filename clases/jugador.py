@@ -5,7 +5,7 @@ class Player(pygame.sprite.Sprite):
 	    PRE: El Player no debe haber sido creado.
 	    POST: El Player queda creado.
 	"""
-	def __init__(self, ANCHO, ALTO):
+	def __init__(self, Ancho, Alto):
 		pygame.sprite.Sprite.__init__(self)
 		self.imagenNave = pygame.image.load("Imagenes/player.png").convert()
 		self.imagenNave.set_colorkey((   0,   0,   0))
@@ -13,10 +13,10 @@ class Player(pygame.sprite.Sprite):
 		self.rect = self.imagenNave.get_rect()
 
 		#Posicion inicial nave:
-		self.tamanio_Ancho = ANCHO
-		self.tamanio_Alto = ALTO
-		self.rect.centerx = ANCHO/2
-		self.rect.centery = ALTO - 50
+		self.tamanio_Ancho = Ancho
+		self.tamanio_Alto = Alto
+		self.rect.centerx = Ancho/2
+		self.rect.centery = Alto - 50
 		self.velocidad = 10
 		self. vida = 100
 		self.listaDisparo = []
@@ -63,7 +63,7 @@ class Player(pygame.sprite.Sprite):
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------
 	"""
-	    PRE: El Player debe haber sido creado.
+	    PRE: El Player debe haber sido creado.Ancho
 	    POST:
 	"""
 	def dibujar(self, superficie):

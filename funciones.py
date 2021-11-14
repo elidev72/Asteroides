@@ -16,6 +16,7 @@ def mostrarTextoEnPantalla(ventana, texto, tipo_De_Letra, tamanio_De_Letra, colo
     texto_Recta = texto_Ventana.get_rect()
     texto_Recta.midtop = (cordenada_X, cordenada_Y)
     ventana.blit(texto_Ventana, texto_Recta)
+    pygame.display.update()
 #------------------------------------------------Fin funcion------------------------------------------------
 
 #----------------------------------------------Inicio funcion-----------------------------------------------
@@ -28,11 +29,10 @@ def mostrarTextoEnPantalla(ventana, texto, tipo_De_Letra, tamanio_De_Letra, colo
 def pause(ventana, cordenada_X, cordenada_Y):
     pausado = True
 
-    while pausado:
+    #Mostrar que el juego esta en pausa
+    mostrarTextoEnPantalla(ventana, "Juego en pausa, presione C para seguir jugando", "Arial", 40, ( 255, 255, 255), cordenada_X, cordenada_Y)
 
-        #Mostrar que el juego esta en pausa
-        mostrarTextoEnPantalla(ventana, "Juego en pausa, presione C para seguir jugando", "Arial", 40, ( 255, 255, 255), cordenada_X, cordenada_Y)
-        pygame.display.update() #esto es necesario o de lo contrario el cartel anterior no aparecera
+    while pausado:
                     
         #Para capturar los eventos que van sucediendo
         for event in pygame.event.get():
