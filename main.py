@@ -45,9 +45,7 @@ if __name__ == '__main__':
 			#Pausa del juego
 			if evento.type == pygame.KEYDOWN:
 				if evento.key == pygame.K_p:
-					pause(ventana, ANCHO/2, ALTO/2 - 50)
-
-		
+					pause(ventana, 50, ALTO/2 - 50)
 
 		#Actualizar ventana
 		pygame.display.update()

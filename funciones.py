@@ -11,11 +11,11 @@ from pygame.locals import *
         y color señalado.
 """
 def mostrarTextoEnPantalla(ventana, texto, tipo_De_Letra, tamanio_De_Letra, color, cordenada_X, cordenada_Y):
-    font = pygame.font.SysFont(tipo_De_Letra, tamanio_De_Letra)
-    texto_Ventana = font.render(texto, True, color)
-    texto_Recta = texto_Ventana.get_rect()
-    texto_Recta.midtop = (cordenada_X, cordenada_Y)
-    ventana.blit(texto_Ventana, texto_Recta)
+    #Preparacion fuente y texto:
+    fuente = pygame.font.SysFont(tipo_De_Letra, tamanio_De_Letra)
+    texto_Ventana = fuente.render(texto, True, color)
+    #Mostrar texto:
+    ventana.blit(texto_Ventana, (cordenada_X, cordenada_Y))
     pygame.display.update()
 #------------------------------------------------Fin funcion------------------------------------------------
 
