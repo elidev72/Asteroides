@@ -2,29 +2,32 @@ from funciones import *
 from clases import *
 
 #Variables globales:
-ANCHO = 800
-ALTO = 600
-
-#Boleano juego:
-jugando = True
+ANCHO = 1000
+ALTO = 750
 
 if __name__ == '__main__':
 	pygame.init()
 	ventana = pygame.display.set_mode((ANCHO, ALTO))
 
 	#Esto decide si se ve o no el mouse, False no se ve y con True si se ve
-	pygame.mouse.set_visible(False)
+	#pygame.mouse.set_visible(False)
 	
 	#Titulo:
-	pygame.display.set_caption("Asteroides 1.0")
+	pygame.display.set_caption(NOMBRE_JUEGO)
 
 	#Instanciar jugador:
 	nave = jugador.Player(ANCHO, ALTO)
 
+	#menu(ventana, ANCHO, ALTO)
+
 	#Ciclo del juego:
-	while True:
-		#Imagen de fondo:
-		ventana.blit(pygame.image.load("imagenes/background.png"),(0,0))
+	jugando = True
+	while jugando:
+		puntaje = 0
+		nivel = 1
+
+		#Indico la imagen del fondo en base al nivel.
+		ventana.blit(pygame.image.load("imagenes/espacio" + str(nivel % 6) + ".png"),(0,0))
 
 		#Inserto la nave en la ventana
 		nave.dibujar(ventana)
@@ -33,19 +36,33 @@ if __name__ == '__main__':
 
 		#Para capturar los eventos que van sucediendo
 		for evento in pygame.event.get():
-			#Para que cierre al precionar la cruz de la ventana
+			#Para que cierre al precionar la cruz de la ventana.
 			if evento.type == pygame.QUIT:
 				pygame.quit()
 				sys.exit()
 
+			#Para que cierre al precionar la tecla escape.
+			if evento.type == pygame.KEYDOWN:
+				if evento.key == pygame.K_ESCAPE:
+					pygame.quit()
+					sys.exit()
+
+			#Para que la nave dispare.
 			if evento.type == pygame.KEYDOWN:
 				if evento.key == pygame.K_SPACE:
 					nave.disparar()
 
-			#Pausa del juego
+			#Pausa del juego.
 			if evento.type == pygame.KEYDOWN:
 				if evento.key == pygame.K_p:
-					pause(ventana, 50, ALTO/2 - 50)
+					pause(ventana, 75, ALTO/2 - 50)
+
+		
+		#Fin del juego:
+		if nave.getVida() == 0:
+			jugando = False
 
 		#Actualizar ventana
 		pygame.display.update()
+		#Esto controla los FP por segundo
+		clock.tick(FPS)

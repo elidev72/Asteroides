@@ -2,30 +2,59 @@ import pygame
 
 class Player(pygame.sprite.Sprite):
 	"""
-	    PRE: El Player no debe haber sido creado.
+	    PRE: El Player no debe haber sido creado, ancho e alto deben ser las dimenciones de alto y
+	    ancho de la ventana siendo estos valores de tipo numericos.
 	    POST: El Player queda creado.
 	"""
-	def __init__(self, Ancho, Alto):
+	def __init__(self, ancho, alto):
 		pygame.sprite.Sprite.__init__(self)
-		self.imagenNave = pygame.image.load("Imagenes/player.png").convert()
+		self.imagenNave = pygame.image.load("imagenes/nave.png").convert()
 		self.imagenNave.set_colorkey((   0,   0,   0))
 		#Rectangulo imagen:
 		self.rect = self.imagenNave.get_rect()
 
 		#Posicion inicial nave:
-		self.tamanio_Ancho = Ancho
-		self.tamanio_Alto = Alto
-		self.rect.centerx = Ancho/2
-		self.rect.centery = Alto - 50
+		self.tamanio_Ancho = ancho
+		self.tamanio_Alto = alto
+		self.rect.centerx = ancho/2
+		self.rect.centery = alto - 50
 		self.velocidad = 10
-		self. vida = 100
+		self.maxHP = 100
+		self.vida = self.maxHP
 		self.listaDisparo = []
 
 #---------------------------------------------------Metodos-------------------------------------------------
 #-----------------------------------------------Inicio metodo-----------------------------------------------
 	"""
 	    PRE: El Player debe haber sido creado.
-	    POST:
+	    POST: Indico el nuevo valor que le asigno a la vida del Player.
+	"""
+	def setVida(self, hp):
+		self.vida = hp
+#-------------------------------------------------Fin metodo------------------------------------------------
+
+#-----------------------------------------------Inicio metodo-----------------------------------------------
+	"""
+	    PRE: El Player debe haber sido creado.
+	    POST: Devuelvo el valor almacenado en la vida del Player.
+	"""
+	def getVida(self):
+		self.vida
+#-------------------------------------------------Fin metodo------------------------------------------------
+
+#-----------------------------------------------Inicio metodo-----------------------------------------------
+	"""
+	    PRE: El Player debe haber sido creado.
+	    POST: Devuelvo el valor maximo de vida que puede poseer el jugador.
+	"""
+	def getMaxHP(self):
+		self.maxHP
+#
+
+#-----------------------------------------------Inicio metodo-----------------------------------------------
+	"""
+	    PRE: El Player debe haber sido creado.
+	    POST: El Player se mueve por la ventana.
 	"""
 	def mover(self):
 		if self.vida > 0:
@@ -55,7 +84,7 @@ class Player(pygame.sprite.Sprite):
 #-----------------------------------------------Inicio metodo-----------------------------------------------
 	"""
 	    PRE: El Player debe haber sido creado.
-	    POST:
+	    POST: El Player dispara.
 	"""
 	def disparar(self):
 		print("Disparar")
@@ -63,8 +92,8 @@ class Player(pygame.sprite.Sprite):
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------
 	"""
-	    PRE: El Player debe haber sido creado.Ancho
-	    POST:
+	    PRE: El Player debe haber sido creado.
+	    POST: El Player es colocado en la ventana del juego.
 	"""
 	def dibujar(self, superficie):
 		superficie.blit(self.imagenNave, self.rect)
