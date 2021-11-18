@@ -4,6 +4,7 @@ from clases import *
 #Variables globales:
 ANCHO = 1000
 ALTO = 750
+ARCHIVO = "top10Puntajes.txt"
 
 if __name__ == '__main__':
 	pygame.init()
@@ -16,9 +17,10 @@ if __name__ == '__main__':
 	pygame.display.set_caption(NOMBRE_JUEGO)
 
 	#Instanciar jugador:
-	nave = jugador.Player(ANCHO, ALTO)
+	nave = jugador.Jugador(ANCHO, ALTO)
 
-	#menu(ventana, ANCHO, ALTO)
+	#Menu de opciones inicial del juego:
+	menu(ventana, ANCHO, ALTO, ARCHIVO)
 
 	#Ciclo del juego:
 	jugando = True

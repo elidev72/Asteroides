@@ -1,6 +1,6 @@
 import pygame
 
-class Player(pygame.sprite.Sprite):
+class Jugador(pygame.sprite.Sprite):
 	"""
 	    PRE: El Player no debe haber sido creado, ancho e alto deben ser las dimenciones de alto y
 	    ancho de la ventana siendo estos valores de tipo numericos.
@@ -39,7 +39,7 @@ class Player(pygame.sprite.Sprite):
 	    POST: Devuelvo el valor almacenado en la vida del Player.
 	"""
 	def getVida(self):
-		self.vida
+		return self.vida
 #-------------------------------------------------Fin metodo------------------------------------------------
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------
@@ -48,7 +48,7 @@ class Player(pygame.sprite.Sprite):
 	    POST: Devuelvo el valor maximo de vida que puede poseer el jugador.
 	"""
 	def getMaxHP(self):
-		self.maxHP
+		return self.maxHP
 #
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------

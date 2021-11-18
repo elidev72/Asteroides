@@ -1,1 +1,2 @@
-from clases.jugador import Player
+from clases.jugador import Jugador
+from clases.puntajes import Puntajes
