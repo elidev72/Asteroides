@@ -89,7 +89,7 @@ class Jugador(pygame.sprite.Sprite):
 	"""
 	def disparar(self, x, y):
 		#el -21 es para que el disparo salga desde el centro de la nave
-		self.listaDisparo.append(disparo.Disparo(x - 21,y))
+		self.listaDisparo.append(disparo.Disparo(x - 21, y - 60))
 #-------------------------------------------------Fin metodo------------------------------------------------
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------

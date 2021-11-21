@@ -22,23 +22,29 @@ if __name__ == '__main__':
 	#Menu de opciones inicial del juego:
 	#menu(ventana, ANCHO, ALTO, ARCHIVO)
 
-	contador_Asteroides = 0
-	cantidad_Asteroides = 0
-	lista_Asteroide_En_Ventana = []
+
+	#cargarAsteroides(8)
+
 	#Ciclo del juego:
 	jugando = True
 	while jugando:
+
 		puntaje = 0
-		nivel = 3
+		nivel = 5
 
 		#Indico la imagen del fondo en base al nivel.
 		ventana.blit(pygame.image.load("imagenes/espacio" + str(nivel % 6) + ".png"),(0,0))
 		#Inserto la nave en la ventana
 		nave.dibujar(ventana)
 
+		cargarAsteroides(8,ventana, ANCHO, ALTO)
+
 
 		#Tiempo:
-		tiempo_Asteroides = pygame.time.get_ticks()
+		#tiempo_Asteroides = pygame.time.get_ticks()
+		#mostrarTextoEnPantalla(ventana, str(tiempo_Asteroides), FUENTE, 25, BLANCO, 25, 100)
+
+		"""
 		#Crear asteroides:
 		if tiempo_Asteroides - contador_Asteroides > 1 and cantidad_Asteroides < 8:
 			contador_Asteroides = tiempo_Asteroides
@@ -61,6 +67,7 @@ if __name__ == '__main__':
 			for x in lista_Asteroide_En_Ventana:
 				if x.rect.top > ANCHO + 10 or x.rect.left < -25 or x.rect.right > ALTO + 25:
 					lista_Asteroide_En_Ventana.remove(x)
+		"""
 
 		#Disparar proyectil:
 		if len(nave.listaDisparo) > 0:

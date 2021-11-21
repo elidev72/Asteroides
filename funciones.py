@@ -11,11 +11,11 @@ clock = pygame.time.Clock()
 #Constantes
 NOMBRE_JUEGO = "Asteroides 1.0"
 FUENTE = "Comic Sans MS"
-FPS = 240
+FPS = 60
 BLANCO = (255,255,255)
 
 #Listas:
-listaAsteroide = []
+lista_Asteroide = []
 
 #----------------------------------------------Inicio funcion-----------------------------------------------
 """
@@ -218,8 +218,16 @@ def pause(ventana, cordenada_X, cordenada_Y):
     PRE:
     POST:
 """
-def cargarAsteroides(x, y):
-    listaAsteroide.append(Asteroide(x,y))
+def cargarAsteroides(cantidad, ventana, ancho, alto):
+    if len(lista_Asteroide) < cantidad:
+        for i in range(cantidad):
+            lista_Asteroide.append(Asteroide())
+    else:
+        for x in lista_Asteroide:
+            x.dibujar(ventana)
+            x.recorrido(ancho, alto)
+        if x.rect.x > ancho - 100:
+            lista_Asteroide.remove(x)
 #------------------------------------------------Fin funcion------------------------------------------------
 
 #----------------------------------------------Inicio funcion-----------------------------------------------
