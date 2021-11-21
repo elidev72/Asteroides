@@ -1,5 +1,5 @@
 from funciones import *
-from clases import *
+from clases import jugador
 
 #Variables globales:
 ANCHO = 1000
@@ -20,19 +20,55 @@ if __name__ == '__main__':
 	nave = jugador.Jugador(ANCHO, ALTO)
 
 	#Menu de opciones inicial del juego:
-	menu(ventana, ANCHO, ALTO, ARCHIVO)
+	#menu(ventana, ANCHO, ALTO, ARCHIVO)
 
+	contador_Asteroides = 0
+	cantidad_Asteroides = 0
+	lista_Asteroide_En_Ventana = []
 	#Ciclo del juego:
 	jugando = True
 	while jugando:
 		puntaje = 0
-		nivel = 1
+		nivel = 3
 
 		#Indico la imagen del fondo en base al nivel.
 		ventana.blit(pygame.image.load("imagenes/espacio" + str(nivel % 6) + ".png"),(0,0))
-
 		#Inserto la nave en la ventana
 		nave.dibujar(ventana)
+
+
+		#Tiempo:
+		tiempo_Asteroides = pygame.time.get_ticks()
+		#Crear asteroides:
+		if tiempo_Asteroides - contador_Asteroides > 1 and cantidad_Asteroides < 8:
+			contador_Asteroides = tiempo_Asteroides
+			cantidad_Asteroides += 1
+			posX = randint(2, 998)
+			cargarAsteroides(posX, 0)
+
+		#Comprobar lista asteroides:
+		if len(listaAsteroide) > 0:
+			for x in listaAsteroide:
+				x.dibujar(ventana)
+				x.recorrido(ANCHO, ALTO)
+				if x.rect.top > 700:
+					lista_Asteroide_En_Ventana.append(x)
+					listaAsteroide.remove(x)
+					
+
+		#Comprobar que existan asteroides en ventana:
+		if len(lista_Asteroide_En_Ventana) == 0:
+			for x in lista_Asteroide_En_Ventana:
+				if x.rect.top > ANCHO + 10 or x.rect.left < -25 or x.rect.right > ALTO + 25:
+					lista_Asteroide_En_Ventana.remove(x)
+
+		#Disparar proyectil:
+		if len(nave.listaDisparo) > 0:
+			for x in nave.listaDisparo:
+				x.dibujar(ventana)
+				x.recorrido()
+				if x.rect.top < -10:
+					nave.listaDisparo.remove(x)
 		#Movimiento de la nave, debe estar fuera del for de los eventos o la nave no se movera al mantener la tecla presionada
 		nave.mover()
 
@@ -52,7 +88,8 @@ if __name__ == '__main__':
 			#Para que la nave dispare.
 			if evento.type == pygame.KEYDOWN:
 				if evento.key == pygame.K_SPACE:
-					nave.disparar()
+					x, y = nave.rect.center
+					nave.disparar(x, y)
 
 			#Pausa del juego.
 			if evento.type == pygame.KEYDOWN:
@@ -63,6 +100,9 @@ if __name__ == '__main__':
 		#Fin del juego:
 		if nave.getVida() == 0:
 			jugando = False
+
+		#Vuelvan a aparecer asteroides:
+
 
 		#Actualizar ventana
 		pygame.display.update()

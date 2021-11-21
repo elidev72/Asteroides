@@ -1,6 +1,8 @@
 import pygame, sys
 from pygame.locals import *
 from clases import puntajes
+from clases import Asteroide
+from random import randint #generar numeros aleatorios
 from io import open
 
 #Pausar el programa, permite controlar los FPS
@@ -11,6 +13,9 @@ NOMBRE_JUEGO = "Asteroides 1.0"
 FUENTE = "Comic Sans MS"
 FPS = 240
 BLANCO = (255,255,255)
+
+#Listas:
+listaAsteroide = []
 
 #----------------------------------------------Inicio funcion-----------------------------------------------
 """
@@ -206,6 +211,15 @@ def pause(ventana, cordenada_X, cordenada_Y):
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_c:
                     pausado = False
+#------------------------------------------------Fin funcion------------------------------------------------
+
+#----------------------------------------------Inicio funcion-----------------------------------------------
+"""
+    PRE:
+    POST:
+"""
+def cargarAsteroides(x, y):
+    listaAsteroide.append(Asteroide(x,y))
 #------------------------------------------------Fin funcion------------------------------------------------
 
 #----------------------------------------------Inicio funcion-----------------------------------------------

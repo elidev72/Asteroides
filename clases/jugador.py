@@ -1,4 +1,5 @@
 import pygame
+from clases import disparo
 
 class Jugador(pygame.sprite.Sprite):
 	"""
@@ -83,11 +84,12 @@ class Jugador(pygame.sprite.Sprite):
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------
 	"""
-	    PRE: El Player debe haber sido creado.
+	    PRE: El Player debe haber sido creado, y debo pasarle las coordenadas x e y de la nave.
 	    POST: El Player dispara.
 	"""
-	def disparar(self):
-		print("Disparar")
+	def disparar(self, x, y):
+		#el -21 es para que el disparo salga desde el centro de la nave
+		self.listaDisparo.append(disparo.Disparo(x - 21,y))
 #-------------------------------------------------Fin metodo------------------------------------------------
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------
