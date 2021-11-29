@@ -23,6 +23,7 @@ class Jugador(pygame.sprite.Sprite):
 		self.maxHP = 100
 		self.vida = self.maxHP
 		self.listaDisparo = []
+		self.sonido_Disparo = pygame.mixer.Sound("sonidos/laser5.ogg")
 
 #---------------------------------------------------Metodos-------------------------------------------------
 #-----------------------------------------------Inicio metodo-----------------------------------------------
@@ -90,6 +91,7 @@ class Jugador(pygame.sprite.Sprite):
 	def disparar(self, x, y):
 		#el -21 es para que el disparo salga desde el centro de la nave
 		self.listaDisparo.append(disparo.Disparo(x - 21, y - 60))
+		self.sonido_Disparo.play()
 #-------------------------------------------------Fin metodo------------------------------------------------
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------

@@ -218,16 +218,8 @@ def pause(ventana, cordenada_X, cordenada_Y):
     PRE:
     POST:
 """
-def cargarAsteroides(cantidad, ventana, ancho, alto):
-    if len(lista_Asteroide) < cantidad:
-        for i in range(cantidad):
-            lista_Asteroide.append(Asteroide())
-    else:
-        for x in lista_Asteroide:
-            x.dibujar(ventana)
-            x.recorrido(ancho, alto)
-        if x.rect.x > ancho - 100:
-            lista_Asteroide.remove(x)
+#def cargarAsteroides(cantidad, ventana, ancho, alto):
+    
 #------------------------------------------------Fin funcion------------------------------------------------
 
 #----------------------------------------------Inicio funcion-----------------------------------------------
