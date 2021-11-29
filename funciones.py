@@ -1,9 +1,10 @@
 import pygame, sys
 from pygame.locals import *
+from tkinter import *
 from clases import puntajes
 from clases import Asteroide
 from random import randint #generar numeros aleatorios
-from io import open
+from io import open #archivos
 
 #Pausar el programa, permite controlar los FPS
 clock = pygame.time.Clock()
@@ -42,7 +43,7 @@ def mostrarTextoEnPantalla(ventana, texto, tipo_De_Letra, tamanio_De_Letra, colo
     PRE:
     POST:
 """
-def mostrarTop10Puntajes(ventana, ancho, alto, nombre_Archivo_Puntajes, color_Boton):
+def listaDeTop10Puntajes(nombre_Archivo_Puntajes):
     archivo = open(nombre_Archivo_Puntajes, "r")
     lista = archivo.readlines()
     archivo.close()
@@ -58,9 +59,17 @@ def mostrarTop10Puntajes(ventana, ancho, alto, nombre_Archivo_Puntajes, color_Bo
         dato    = puntajes.Puntajes(nombre, int(puntaje), int(nivel))
         lPuntajes.append(dato)
 
-    del lista, cadena, nombre, puntaje, nivel, dato
+    return lPuntajes
+#------------------------------------------------Fin funcion------------------------------------------------
 
-    
+#----------------------------------------------Inicio funcion-----------------------------------------------
+"""
+    PRE:
+    POST:
+"""
+def mostrarTop10Puntajes(ventana, ancho, alto, nombre_Archivo_Puntajes, color_Boton):
+    lPuntajes = listaDeTop10Puntajes(nombre_Archivo_Puntajes)
+
     #Imagen de fondo:
     ventana.blit(pygame.image.load("imagenes/espacio.png"),(0,0))
     mostrarTextoEnPantalla(ventana, "TOP 10 Puntajes", FUENTE, 40, BLANCO, ancho/2-150, 0)
@@ -172,15 +181,6 @@ def menu(ventana, ancho, alto, nombre_Archivo_Puntajes):
 
 #----------------------------------------------Inicio funcion-----------------------------------------------
 """
-    PRE:
-    POST:
-"""
-def game():
-    pass
-#------------------------------------------------Fin funcion------------------------------------------------
-
-#----------------------------------------------Inicio funcion-----------------------------------------------
-"""
     PRE: Debe existir la ventana donde se desea que se realice la funcion, la cordenada_X/Y deben ser valores
         de tipo numerico para mostrar que esta en pausa.
     POST: El juego queda en pausa mostrando el mensaje en las coordenadas indicadas hasta que se cierre la
@@ -218,8 +218,116 @@ def pause(ventana, cordenada_X, cordenada_Y):
     PRE:
     POST:
 """
-#def cargarAsteroides(cantidad, ventana, ancho, alto):
+def barraDeHP(ventana, x, y, vida, maxHP):
+    Color = (0, 255, 0)
+    BAR_LENGHT = 180
+    BAR_HEIGHT = 40
+    fill = (vida / 100) * BAR_LENGHT
+    borde = pygame.Rect(x, y, BAR_LENGHT, BAR_HEIGHT)
+    fill = pygame.Rect(x, y, fill, BAR_HEIGHT)
+    pygame.draw.rect(ventana, Color, fill)
+    pygame.draw.rect(ventana, BLANCO, borde, 2)
+    mostrarTextoEnPantalla(ventana, str(vida) + str("/") + str(maxHP), FUENTE, 20, (204,0,0), 60, 10)
     
+#------------------------------------------------Fin funcion------------------------------------------------
+
+#----------------------------------------------Inicio funcion-----------------------------------------------
+"""
+    PRE:
+    POST:
+"""
+def ingresarNombre():
+    raiz = Tk()
+
+    #StringVar:
+    nombre = StringVar()
+
+    raiz.title("Nombre de jugador")
+    raiz.resizable(False, False)
+    raiz.geometry("400x100")
+    raiz.config(bg="#36FFF9")
+
+    #Etiqueta:
+    texto = Label(raiz, text="Ingrese su nombre: ", bg="#14FCB6")
+    texto.place(x = 10, y = 10)
+    #Caja de texto:
+    caja = Entry(raiz, textvariable=nombre)
+    caja.place(x = 150, y = 40)
+
+    raiz.mainloop() #Siempre debe ir al final
+
+    return nombre
+#------------------------------------------------Fin funcion------------------------------------------------
+
+#----------------------------------------------Inicio funcion-----------------------------------------------
+"""
+    PRE:
+    POST:
+"""
+def finDeLaPartida(ventana, pts, nivel, ancho, alto, nombre_Archivo_Puntajes):
+    lPuntajes = listaDeTop10Puntajes(nombre_Archivo_Puntajes)
+
+    ventana.blit(pygame.image.load("imagenes/espacio.png"),(0,0))
+    mostrarTextoEnPantalla(ventana, "FIN DEL JUEGO", FUENTE, 80, (159,249,174), ancho/10, alto/12)
+
+
+    puntaje_Top = False
+    contador = 0
+    while (not puntaje_Top) and (contador < 10):
+        if pts > lPuntajes[contador].puntaje:
+            puntaje_Top = True
+            contador += 1
+
+    if puntaje_Top:
+        mostrarTextoEnPantalla(ventana, "Puntaje top logrado!", FUENTE, 50, (159,249,174), ancho/10, alto/2)
+
+
+    #Coordenadas y tamanio de los botones.
+    boton_Salir = pygame.Rect(20, 690, 200, 50)
+    #Coloco los votones en pantalla
+    pygame.draw.rect(ventana, (255, 0, 0), boton_Salir)
+    mostrarTextoEnPantalla(ventana, "<- Volver", FUENTE, 30, BLANCO, 60, 692)
+
+    #Ingresar puntaje top:
+    if puntaje_Top:
+        nombre = ingresarNombre()
+
+        dato = puntajes.Puntajes(nombre.get(), pts, nivel)
+        lPuntajes.insert(contador-1, dato)
+
+    archivo = open(nombre_Archivo_Puntajes, "r+")
+    for i in range(10):
+        sTexto = lPuntajes[i].nombre_Jugador + "," + str(lPuntajes[i].puntaje) + "," + str(lPuntajes[i].nivel) + ";\n"
+        archivo.write(sTexto)
+    archivo.close()
+
+    end = True
+    while end:
+
+        #Para capturar los eventos que van sucediendo
+        evento = pygame.event.get()
+        for accion in evento:
+            #Para que cierre al precionar la cruz de la ventana.
+            if accion.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            #Para que cierre al precionar la tecla escape.
+            if accion.type == pygame.KEYDOWN:
+                if accion.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+
+            if accion.type == pygame.MOUSEBUTTONDOWN:
+                #Posicion del mouse
+                mouse_Posicion = pygame.mouse.get_pos()
+                if boton_Salir.collidepoint(mouse_Posicion):
+                    end = False
+
+        pygame.display.update()
+        #Esto controla los FP por segundo
+        clock.tick(FPS)
+
 #------------------------------------------------Fin funcion------------------------------------------------
 
 #----------------------------------------------Inicio funcion-----------------------------------------------

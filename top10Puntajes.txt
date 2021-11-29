@@ -1,5 +1,5 @@
-Juan,1,0;
-NULL,0,0;
+Elías,1300,2;
+Elías,10,1;
 NULL,0,0;
 NULL,0,0;
 NULL,0,0;

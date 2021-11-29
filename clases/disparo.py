@@ -14,5 +14,3 @@ class Disparo(pygame.sprite.Sprite):
 
 	def dibujar(self, superficie):
 		superficie.blit(self.imagenDisparo, self.rect)
-
-	

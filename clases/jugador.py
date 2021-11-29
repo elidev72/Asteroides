@@ -26,32 +26,6 @@ class Jugador(pygame.sprite.Sprite):
 		self.sonido_Disparo = pygame.mixer.Sound("sonidos/laser5.ogg")
 
 #---------------------------------------------------Metodos-------------------------------------------------
-#-----------------------------------------------Inicio metodo-----------------------------------------------
-	"""
-	    PRE: El Player debe haber sido creado.
-	    POST: Indico el nuevo valor que le asigno a la vida del Player.
-	"""
-	def setVida(self, hp):
-		self.vida = hp
-#-------------------------------------------------Fin metodo------------------------------------------------
-
-#-----------------------------------------------Inicio metodo-----------------------------------------------
-	"""
-	    PRE: El Player debe haber sido creado.
-	    POST: Devuelvo el valor almacenado en la vida del Player.
-	"""
-	def getVida(self):
-		return self.vida
-#-------------------------------------------------Fin metodo------------------------------------------------
-
-#-----------------------------------------------Inicio metodo-----------------------------------------------
-	"""
-	    PRE: El Player debe haber sido creado.
-	    POST: Devuelvo el valor maximo de vida que puede poseer el jugador.
-	"""
-	def getMaxHP(self):
-		return self.maxHP
-#
 
 #-----------------------------------------------Inicio metodo-----------------------------------------------
 	"""
