@@ -40,8 +40,8 @@ def mostrarTextoEnPantalla(ventana, texto, tipo_De_Letra, tamanio_De_Letra, colo
 
 #----------------------------------------------Inicio funcion-----------------------------------------------
 """
-    PRE:
-    POST:
+    PRE: Debe existir un archivo con el top de puntajes el cual debe tener el formato correspondiente.
+    POST: Devuelve una lista de los puntajes top10.
 """
 def listaDeTop10Puntajes(nombre_Archivo_Puntajes):
     archivo = open(nombre_Archivo_Puntajes, "r")
@@ -64,8 +64,9 @@ def listaDeTop10Puntajes(nombre_Archivo_Puntajes):
 
 #----------------------------------------------Inicio funcion-----------------------------------------------
 """
-    PRE:
-    POST:
+    PRE: Debe existir la ventana, las dimensiones de ella, el nombre del archivo y debo pasar el color del boton
+    en la escala RGB.
+    POST: Coloca en la ventana el top10 de puntajes y la opcion para volver al menu.
 """
 def mostrarTop10Puntajes(ventana, ancho, alto, nombre_Archivo_Puntajes, color_Boton):
     lPuntajes = listaDeTop10Puntajes(nombre_Archivo_Puntajes)
@@ -116,8 +117,65 @@ def mostrarTop10Puntajes(ventana, ancho, alto, nombre_Archivo_Puntajes, color_Bo
 
 #----------------------------------------------Inicio funcion-----------------------------------------------
 """
-    PRE:
-    POST:
+    PRE: Debo pasar por parametro la ventana y el color del boton.
+    POST: Muestra en pantalla las teclas que se deben colocar en la ventana para jugar.
+"""
+def comandosDelJuego(ventana, color_Boton):
+    #Imagen de fondo:
+    ventana.blit(pygame.image.load("imagenes/espacio.png"),(0,0))
+
+    imagen_Teclado = pygame.image.load("imagenes/teclado.png").convert()
+    imagen_Teclado.set_colorkey((   0,   0,   0))
+    ventana.blit(imagen_Teclado, (50, 50))
+
+    posicion = 300
+    incremento = 45
+    mostrarTextoEnPantalla(ventana, "Opciones:", FUENTE, 35, "#990000", 60, posicion)
+    mostrarTextoEnPantalla(ventana, "1: Disparar", FUENTE, 25, "#990000", 70, posicion + incremento)
+    mostrarTextoEnPantalla(ventana, "2: Pausa", FUENTE, 25, "#990000", 70, posicion + incremento *2)
+    mostrarTextoEnPantalla(ventana, "3: Continuar", FUENTE, 25, "#990000", 70, posicion + incremento *3)
+    mostrarTextoEnPantalla(ventana, "4: Mover hacia arriba", FUENTE, 25, "#990000", 70, posicion + incremento *4)
+    mostrarTextoEnPantalla(ventana, "5: Mover hacia abajo", FUENTE, 25, "#990000", 70, posicion + incremento *5)
+    mostrarTextoEnPantalla(ventana, "6: Mover hacia la derecha", FUENTE, 25, "#990000", 70, posicion + incremento *6)
+    mostrarTextoEnPantalla(ventana, "7:Mover hacia la izquierda", FUENTE, 25, "#990000", 70, posicion + incremento *7)
+
+    #Coordenadas y tamanio de los botones.
+    boton_Salir = pygame.Rect(20, 690, 200, 50)
+    #Coloco los votones en pantalla
+    pygame.draw.rect(ventana, color_Boton, boton_Salir)
+    mostrarTextoEnPantalla(ventana, "<- Volver", FUENTE, 30, BLANCO, 60, 692)
+
+    mostrar_Puntajes = True
+    while mostrar_Puntajes:
+
+        #Para capturar los eventos que van sucediendo
+        for evento in pygame.event.get():
+            #Para que cierre al precionar la cruz de la ventana.
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            #Para que cierre al precionar la tecla escape.
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                #Posicion del mouse
+                mouse_Posicion = pygame.mouse.get_pos()
+                if boton_Salir.collidepoint(mouse_Posicion):
+                    mostrar_Puntajes = False
+
+        pygame.display.update()
+        #Esto controla los FP por segundo
+        clock.tick(FPS)
+#------------------------------------------------Fin funcion------------------------------------------------
+
+#----------------------------------------------Inicio funcion-----------------------------------------------
+"""
+    PRE: Debe existir la ventana, las dimensiones de ella y el archivo donde se almacenan los puntajes.
+    POST: Devuelve en la pantalla el menu con opciones a utilizar.
 """
 def menu(ventana, ancho, alto, nombre_Archivo_Puntajes):
     color_botones = (255, 0, 0)
@@ -169,6 +227,9 @@ def menu(ventana, ancho, alto, nombre_Archivo_Puntajes):
                 mouse_Posicion = pygame.mouse.get_pos()
                 if boton1.collidepoint(mouse_Posicion):
                     menu = False
+                elif boton2.collidepoint(mouse_Posicion):
+                    comandosDelJuego(ventana, color_botones)
+                    actualizar = True
                 elif boton3.collidepoint(mouse_Posicion):
                     mostrarTop10Puntajes(ventana, ancho, alto, nombre_Archivo_Puntajes, color_botones)
                     actualizar = True
@@ -215,8 +276,9 @@ def pause(ventana, cordenada_X, cordenada_Y):
 
 #----------------------------------------------Inicio funcion-----------------------------------------------
 """
-    PRE:
-    POST:
+    PRE: Debe existir la ventana, debo indicar la cantidad de vida de la nave, el max de vida, y la cordenada
+    en X e Y que deseo que aparezca.
+    POST: Dibuja en la ventana una barra indicando la vida que restante.
 """
 def barraDeHP(ventana, x, y, vida, maxHP):
     Color = (0, 255, 0)
@@ -233,8 +295,8 @@ def barraDeHP(ventana, x, y, vida, maxHP):
 
 #----------------------------------------------Inicio funcion-----------------------------------------------
 """
-    PRE:
-    POST:
+    PRE: Esta función se utilizara para obtener el nombre del jugador.
+    POST: Devuelve el nombre del jugador.
 """
 def ingresarNombre():
     raiz = Tk()
@@ -261,8 +323,11 @@ def ingresarNombre():
 
 #----------------------------------------------Inicio funcion-----------------------------------------------
 """
-    PRE:
-    POST:
+    PRE: Debe existir la ventana, los pts, el nivel, las dimensiones de la ventana y el archivo donde se guardan
+    los datos de los 10 puntajes más altos.
+    POST: Indica que el juego finalizo, y en caso de haber logrado un puntaje para ingresar al top 10 devuelve
+    una ventana para almacenar los datos del jugador en el top. Tambien se encuentra una opción para volver al
+    menu.
 """
 def finDeLaPartida(ventana, pts, nivel, ancho, alto, nombre_Archivo_Puntajes):
     lPuntajes = listaDeTop10Puntajes(nombre_Archivo_Puntajes)
@@ -270,36 +335,33 @@ def finDeLaPartida(ventana, pts, nivel, ancho, alto, nombre_Archivo_Puntajes):
     ventana.blit(pygame.image.load("imagenes/espacio.png"),(0,0))
     mostrarTextoEnPantalla(ventana, "FIN DEL JUEGO", FUENTE, 80, (159,249,174), ancho/10, alto/12)
 
-
-    puntaje_Top = False
-    contador = 0
-    while (not puntaje_Top) and (contador < 10):
-        if pts > lPuntajes[contador].puntaje:
-            puntaje_Top = True
-            contador += 1
-
-    if puntaje_Top:
-        mostrarTextoEnPantalla(ventana, "Puntaje top logrado!", FUENTE, 50, (159,249,174), ancho/10, alto/2)
-
-
     #Coordenadas y tamanio de los botones.
     boton_Salir = pygame.Rect(20, 690, 200, 50)
     #Coloco los votones en pantalla
     pygame.draw.rect(ventana, (255, 0, 0), boton_Salir)
     mostrarTextoEnPantalla(ventana, "<- Volver", FUENTE, 30, BLANCO, 60, 692)
 
+    puntaje_Top = False
+    posicion_Ranking = 0
+
+    for i in range(10):
+        if puntaje_Top == False and pts > lPuntajes[i].puntaje:
+            puntaje_Top = True
+            posicion_Ranking = i
+
     #Ingresar puntaje top:
     if puntaje_Top:
+        mostrarTextoEnPantalla(ventana, "Puntaje top logrado!", FUENTE, 50, (159,249,174), ancho/10, alto/2)
         nombre = ingresarNombre()
 
         dato = puntajes.Puntajes(nombre.get(), pts, nivel)
-        lPuntajes.insert(contador-1, dato)
+        lPuntajes.insert(posicion_Ranking, dato)
 
-    archivo = open(nombre_Archivo_Puntajes, "r+")
-    for i in range(10):
-        sTexto = lPuntajes[i].nombre_Jugador + "," + str(lPuntajes[i].puntaje) + "," + str(lPuntajes[i].nivel) + ";\n"
-        archivo.write(sTexto)
-    archivo.close()
+        archivo = open(nombre_Archivo_Puntajes, "r+")
+        for i in range(10):
+            sTexto = lPuntajes[i].nombre_Jugador + "," + str(lPuntajes[i].puntaje) + "," + str(lPuntajes[i].nivel) + ";\n"
+            archivo.write(sTexto)
+        archivo.close()
 
     end = True
     while end:

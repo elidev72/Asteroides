@@ -13,9 +13,6 @@ if __name__ == '__main__':
 	#Titulo:
 	pygame.display.set_caption(NOMBRE_JUEGO)
 
-	#Instanciar jugador:
-	nave = jugador.Jugador(ANCHO, ALTO)
-
 	#Sonidos:
 	sonido_Colision_Asteroide_Disparo = pygame.mixer.Sound("sonidos/explosion.wav")
 	pygame.mixer.music.load("sonidos/music.ogg")
@@ -27,24 +24,28 @@ if __name__ == '__main__':
 		menu(ventana, ANCHO, ALTO, ARCHIVO)
 		pygame.mouse.set_visible(False)
 
-		nivel = 1
+		#Instanciar jugador:
+		nave = jugador.Jugador(ANCHO, ALTO)
+		
 		puntaje = 0
+		nivel = 1
+
 		#Ciclo del juego:
 		jugando = True
 		while jugando:
+			danio = nivel * 2
 
-			#danio = nivel * 2
-			danio = 100
-			#Con esto actualiza el nivel cada 90 segundos
 			tiempo = pygame.time.get_ticks()
+			#Con esto actualiza el nivel cada 90 segundos
 			if tiempo > (90000 * nivel):
 				nivel += 1
+				#Curar por subir de nivel
 				if nave.vida < nave.maxHP:
 					if danio <= (nave.maxHP - nave.vida):
 						nave.vida += danio
 					else:
 						nave.vida = nave.maxHP
-			
+
 			#Indico la imagen del fondo en base al nivel.
 			ventana.blit(pygame.image.load("imagenes/espacio" + str(nivel % 6) + ".png"),(0,0))
 
@@ -136,6 +137,10 @@ if __name__ == '__main__':
 				jugando = False
 
 		#Indico el fin del juego.
+		del nave
+		for i in lista_Asteroide:
+			lista_Asteroide.remove(i)
+
 		#Esto decide si se ve o no el mouse, False no se ve y con True si se ve:
 		pygame.mouse.set_visible(True)
 		finDeLaPartida(ventana, puntaje, nivel, ANCHO, ALTO, ARCHIVO)
