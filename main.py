@@ -17,7 +17,7 @@ if __name__ == '__main__':
 	sonido_Colision_Asteroide_Disparo = pygame.mixer.Sound("sonidos/explosion.wav")
 	pygame.mixer.music.load("sonidos/music.ogg")
 	#con esto la musica quede en loop:
-	#pygame.mixer.music.play(loops=-1)
+	pygame.mixer.music.play(loops=-1)
 
 	while True:
 		#Menu de opciones inicial del juego:
