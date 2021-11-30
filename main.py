@@ -30,14 +30,23 @@ if __name__ == '__main__':
 		puntaje = 0
 		nivel = 1
 
+		inicio_Juego = True
+
 		#Ciclo del juego:
 		jugando = True
 		while jugando:
 			danio = nivel * 2
 
 			tiempo = pygame.time.get_ticks()
-			#Con esto actualiza el nivel cada 90 segundos
-			if tiempo > (90000 * nivel):
+
+			#Este if es para que el juego inicie desde el nivel 1.
+			if inicio_Juego:
+				aux = tiempo
+				inicio_Juego = False
+
+			#Con esto actualiza el nivel cada 60 segundos.
+			if tiempo - aux > 60000:
+				aux = tiempo
 				nivel += 1
 				#Curar por subir de nivel
 				if nave.vida < nave.maxHP:
