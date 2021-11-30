@@ -13,7 +13,7 @@ clock = pygame.time.Clock()
 NOMBRE_JUEGO = "Asteroides 1.0"
 FUENTE = "Comic Sans MS"
 FPS = 60
-BLANCO = (255,255,255)
+BLANCO = "#FFFFFF"
 
 #Listas:
 lista_Asteroide = []
@@ -281,7 +281,7 @@ def pause(ventana, cordenada_X, cordenada_Y):
     POST: Dibuja en la ventana una barra indicando la vida que restante.
 """
 def barraDeHP(ventana, x, y, vida, maxHP):
-    Color = (0, 255, 0)
+    Color = "#00FF00"
     BAR_LENGHT = 180
     BAR_HEIGHT = 40
     fill = (vida / 100) * BAR_LENGHT
@@ -289,7 +289,7 @@ def barraDeHP(ventana, x, y, vida, maxHP):
     fill = pygame.Rect(x, y, fill, BAR_HEIGHT)
     pygame.draw.rect(ventana, Color, fill)
     pygame.draw.rect(ventana, BLANCO, borde, 2)
-    mostrarTextoEnPantalla(ventana, str(vida) + str("/") + str(maxHP), FUENTE, 20, (204,0,0), 60, 10)
+    mostrarTextoEnPantalla(ventana, str(vida) + str("/") + str(maxHP), FUENTE, 20, "#CC0000", 60, 10)
     
 #------------------------------------------------Fin funcion------------------------------------------------
 
