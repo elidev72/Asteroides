@@ -44,7 +44,7 @@ def mostrarTextoEnPantalla(ventana, texto, tipo_De_Letra, tamanio_De_Letra, colo
     POST: Devuelve una lista de los puntajes top10.
 """
 def listaDeTop10Puntajes(nombre_Archivo_Puntajes):
-    archivo = open(nombre_Archivo_Puntajes, "r")
+    archivo = open(nombre_Archivo_Puntajes, "r", encoding='utf-8')
     lista = archivo.readlines()
     archivo.close()
     lPuntajes = []
@@ -73,8 +73,8 @@ def mostrarTop10Puntajes(ventana, ancho, alto, nombre_Archivo_Puntajes, color_Bo
 
     #Imagen de fondo:
     ventana.blit(pygame.image.load("imagenes/espacio.png"),(0,0))
-    mostrarTextoEnPantalla(ventana, "TOP 10 Puntajes", FUENTE, 40, BLANCO, ancho/2-150, 0)
-    mostrarTextoEnPantalla(ventana, "Posicion - Jugador  -  Punjate - Nivel", FUENTE, 40, BLANCO, ancho/2-350, 100)
+    mostrarTextoEnPantalla(ventana, "TOP 10 Puntajes", FUENTE, 40, BLANCO, ancho/2-150, 10)
+    mostrarTextoEnPantalla(ventana, "Posicion - Jugador  -  Punjate - Nivel", FUENTE, 40, BLANCO, ancho/2-250, 100)
     
     #Datos jugadores
     for i in range(len(lPuntajes)):
@@ -86,7 +86,7 @@ def mostrarTop10Puntajes(ventana, ancho, alto, nombre_Archivo_Puntajes, color_Bo
     boton_Salir = pygame.Rect(20, 690, 200, 50)
     #Coloco los votones en pantalla
     pygame.draw.rect(ventana, color_Boton, boton_Salir)
-    mostrarTextoEnPantalla(ventana, "<- Volver", FUENTE, 30, BLANCO, 60, 692)
+    mostrarTextoEnPantalla(ventana, "<- Volver", FUENTE, 30, BLANCO, 60, 707)
 
     mostrar_Puntajes = True
     while mostrar_Puntajes:
@@ -143,7 +143,7 @@ def comandosDelJuego(ventana, color_Boton):
     boton_Salir = pygame.Rect(20, 690, 200, 50)
     #Coloco los votones en pantalla
     pygame.draw.rect(ventana, color_Boton, boton_Salir)
-    mostrarTextoEnPantalla(ventana, "<- Volver", FUENTE, 30, BLANCO, 60, 692)
+    mostrarTextoEnPantalla(ventana, "<- Volver", FUENTE, 30, BLANCO, 60, 707)
 
     mostrar_Puntajes = True
     while mostrar_Puntajes:
@@ -192,7 +192,7 @@ def menu(ventana, ancho, alto, nombre_Archivo_Puntajes):
             #Imagen de fondo:
             ventana.blit(pygame.image.load("imagenes/espacio.png"),(0,0))
 
-            mostrarTextoEnPantalla(ventana, NOMBRE_JUEGO, FUENTE, 120, (159,249,174), ancho/10, alto/12)
+            mostrarTextoEnPantalla(ventana, NOMBRE_JUEGO, FUENTE, 120, (159,249,174), ancho/5, alto/12)
 
             mostrarTextoEnPantalla(ventana, "Opciones del juego", FUENTE, 40, BLANCO, ancho/2 - 175, alto/3)
 
@@ -203,11 +203,11 @@ def menu(ventana, ancho, alto, nombre_Archivo_Puntajes):
 
             #Coloco los votones en pantalla
             pygame.draw.rect(ventana, color_botones, boton1)
-            mostrarTextoEnPantalla(ventana, "Jugar", FUENTE, 30, BLANCO, 465, 350)
+            mostrarTextoEnPantalla(ventana, "Jugar", FUENTE, 30, BLANCO, 465, 365)
             pygame.draw.rect(ventana, color_botones, boton2)
-            mostrarTextoEnPantalla(ventana, "Comandos del juego", FUENTE, 30, BLANCO, 375, 450)
+            mostrarTextoEnPantalla(ventana, "Comandos del juego", FUENTE, 30, BLANCO, 375, 465)
             pygame.draw.rect(ventana, color_botones, boton3)
-            mostrarTextoEnPantalla(ventana, "TOP 10 Puntajes", FUENTE, 30, BLANCO, 390, 550)
+            mostrarTextoEnPantalla(ventana, "TOP 10 Puntajes", FUENTE, 30, BLANCO, 390, 565)
 
         #Para capturar los eventos que van sucediendo
         for evento in pygame.event.get():
@@ -289,7 +289,7 @@ def barraDeHP(ventana, x, y, vida, maxHP):
     fill = pygame.Rect(x, y, fill, BAR_HEIGHT)
     pygame.draw.rect(ventana, Color, fill)
     pygame.draw.rect(ventana, BLANCO, borde, 2)
-    mostrarTextoEnPantalla(ventana, str(vida) + str("/") + str(maxHP), FUENTE, 20, "#CC0000", 60, 10)
+    mostrarTextoEnPantalla(ventana, str(vida) + str("/") + str(maxHP), FUENTE, 20, "#CC0000", 60, 18)
     
 #------------------------------------------------Fin funcion------------------------------------------------
 
@@ -339,7 +339,7 @@ def finDeLaPartida(ventana, pts, nivel, ancho, alto, nombre_Archivo_Puntajes):
     boton_Salir = pygame.Rect(20, 690, 200, 50)
     #Coloco los votones en pantalla
     pygame.draw.rect(ventana, (255, 0, 0), boton_Salir)
-    mostrarTextoEnPantalla(ventana, "<- Volver", FUENTE, 30, BLANCO, 60, 692)
+    mostrarTextoEnPantalla(ventana, "<- Volver", FUENTE, 30, BLANCO, 60, 707)
 
     puntaje_Top = False
     posicion_Ranking = 0
